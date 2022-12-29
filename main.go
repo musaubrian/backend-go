@@ -2,19 +2,24 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
-	"github.com/gorilla/mux"
+//	"github.com/gorilla/mux"
 )
+ 
+func homePage(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Welcome to the HomePage!")
+    fmt.Println("Yay, you found the hompage")
+}
+func handleRequests() {
+    http.HandleFunc("/", homePage)
+    http.ListenAndServe(":8000", nil)
+    log.Fatal(http.ListenAndServe(":8000", nil))
 
-func main()  {
-    r := mux.NewRouter()
+}
+ 
 
-    r.HandleFunc("/books/{title}", func(w http.ResponseWriter, r *http.Request) {
-        vars := mux.Vars(r)
-        title := vars["title"]
-
-        fmt.Fprintf(w, "you have requested  the book %s\n", title)
-    })
-    http.ListenAndServe(":80",r)
+func main() {
+   handleRequests()
 }
