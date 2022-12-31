@@ -8,6 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/musaubrian/backend-go/models"
+    "github.com/musaubrian/backend-go/utils"
 )
 
 //gets all the redirect urls
@@ -35,6 +36,27 @@ func getLink(c *fiber.Ctx) error  {
 
 }
 
+
+func createLink(c *fiber.Ctx) error {
+    c.Accepts("application/json")
+
+    var link models.TinyUrl
+    err := c.BodyParser(&link)
+    if err != nil {
+        log.Fatal("Error parsing JSON: ", err)
+    }
+
+    link.ShortUrl = utils.GenerateUrl()
+
+    err = models.CreateLink(link)
+    if err != nil {
+        log.Fatal("Could not create new link")
+    }
+
+    return c.Status(fiber.StatusOK).JSON(link)
+}
+
+
 func SetupAndListen()  {
     router := fiber.New()
 
@@ -42,8 +64,9 @@ func SetupAndListen()  {
         AllowOrigins: "*",
         AllowHeaders: "Origin, Content-Type, Accept",
     }))
-    router.Get("/lns", getRedirects)
+    router.Get("/l", getRedirects)
     router.Get("/l/:id", getLink)
+    router.Post("/n", createLink)
 
     router.Listen(":8000")
 }
