@@ -3,6 +3,7 @@ package models
 import (
 	"log"
 
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
@@ -14,15 +15,18 @@ type TinyUrl struct {
     ShortUrl string `json:"url" gorm:"not null"`
 }
 
-func Setup()  {
-    postgreDb := ""
-
-    db, err := gorm.Open(postgres.Open(postgreDb), &gorm.Config())
-
+func Setup(){
+    postgresdb := "host=containers-us-west-16.railway.app user=postgres password=lmcoCUMkVLR6cgOt5mw8 dbname=railway port=5923"
+    
+    var err error
+    db, err = gorm.Open(postgres.Open(postgresdb), &gorm.Config{})
     if err != nil {
-        log.Fatal("Could not open db:", err)
+        log.Fatal("Could not open database:", err)
         panic(err)
-    } 
+    }
 
     err = db.AutoMigrate(&TinyUrl{})
+    if err != nil {
+        log.Fatal("Error encountered:", err)
+    }
 }
