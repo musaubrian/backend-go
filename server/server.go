@@ -3,6 +3,7 @@ package server
 
 import (
 	"log"
+	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -13,13 +14,25 @@ import (
 func getRedirects(c *fiber.Ctx) error{
     links, err := models.GetAllLinks()
     if err != nil {
-        log.Fatal("Error getting all links:", err)
-        return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-            "message": "error getting all the links" + err.Error(),
-        })
+        log.Fatal("Error getting all links:", err) 
     }
 
     return c.Status(fiber.StatusOK).JSON(links)
+}
+
+func getLink(c *fiber.Ctx) error  {
+    id, err := strconv.ParseUint(c.Params("id"), 10, 64)
+    if err != nil {
+        log.Fatal("Error reading link id: ", err) 
+    }
+
+    link, err := models.GetLink(id)
+    if err != nil {
+        log.Fatal("Error getting link from db", err)
+    }
+
+    return c.Status(fiber.StatusOK).JSON(link)
+
 }
 
 func SetupAndListen()  {
@@ -29,7 +42,8 @@ func SetupAndListen()  {
         AllowOrigins: "*",
         AllowHeaders: "Origin, Content-Type, Accept",
     }))
-    router.Get("/lnks", getRedirects)
+    router.Get("/lns", getRedirects)
+    router.Get("/l/:id", getLink)
 
     router.Listen(":8000")
 }
