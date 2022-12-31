@@ -21,6 +21,7 @@ func getRedirects(c *fiber.Ctx) error{
     return c.Status(fiber.StatusOK).JSON(links)
 }
 
+//get a single link using the ID
 func getLink(c *fiber.Ctx) error  {
     id, err := strconv.ParseUint(c.Params("id"), 10, 64)
     if err != nil {
@@ -57,6 +58,17 @@ func createLink(c *fiber.Ctx) error {
 }
 
 
+func redirectToUrl(c *fiber.Ctx) error {
+    shortUrl := c.Params("redirect")
+
+    link, err := models.FindByUrl(shortUrl)
+    if err != nil {
+        log.Fatal("Could not find the redirect link in database: ", err)
+    }
+
+    return c.Redirect(link.RedirectUrl, fiber.StatusTemporaryRedirect)
+}
+
 func SetupAndListen()  {
     router := fiber.New()
 
@@ -64,6 +76,8 @@ func SetupAndListen()  {
         AllowOrigins: "*",
         AllowHeaders: "Origin, Content-Type, Accept",
     }))
+
+    router.Get("/r/:redirect", redirectToUrl)
     router.Get("/l", getRedirects)
     router.Get("/l/:id", getLink)
     router.Post("/n", createLink)
