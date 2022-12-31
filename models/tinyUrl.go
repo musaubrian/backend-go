@@ -38,11 +38,3 @@ func DeleteLink(id uint64) error {
     return tx.Error
 
 }
-
-//func FindByUrl(link string)(TinyUrl, error)  {
-//    var tinyUrl TinyUrl
-
- //   tx := db.Where("shortUrl = ?", tinyUrl).First(&TinyUrl)
-
-   // return link, tx.Error
-//}

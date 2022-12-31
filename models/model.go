@@ -21,7 +21,7 @@ func Setup(){
     var err error
     db, err = gorm.Open(postgres.Open(postgresdb), &gorm.Config{})
     if err != nil {
-        log.Fatal("Could not open database:", err)
+        log.Fatal("Could not open database: ", err)
         panic(err)
     }
 

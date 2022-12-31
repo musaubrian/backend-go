@@ -9,25 +9,27 @@ import (
 	"github.com/musaubrian/backend-go/models"
 )
 
-
 //gets all the redirect urls
-func getRedirects(ctx *fiber.Ctx)error  {
+func getRedirects(c *fiber.Ctx) error{
     links, err := models.GetAllLinks()
     if err != nil {
         log.Fatal("Error getting all links:", err)
-        return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-            "message": "error getting all the links"+err.Error(),
-        }))
+        return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+            "message": "error getting all the links" + err.Error(),
+        })
     }
 
-    return ctx.Status(fiber.StatusOK).JSON(links)
+    return c.Status(fiber.StatusOK).JSON(links)
 }
 
 func SetupAndListen()  {
     router := fiber.New()
 
     router.Use(cors.New(cors.Config{
-        AllowOrigin: "*",
+        AllowOrigins: "*",
         AllowHeaders: "Origin, Content-Type, Accept",
     }))
+    router.Get("/lnks", getRedirects)
+
+    router.Listen(":8000")
 }
