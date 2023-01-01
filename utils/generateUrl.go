@@ -1,14 +1,16 @@
 package utils
 
-import "math/rand"
+import "crypto/rand"
 
-var collection = []rune("0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM")
+var collection = []byte ("0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM")
 func GenerateUrl()  string{
-    str := make([]rune, 4)
-    
-    for i := range str {
-        str[i] = collection[rand.Intn(len(collection))]
-    }
 
+    linkLength := len(collection)
+    str := make([]byte, 4)
+    rand.Read(str)
+
+    for i := 0; i < 4; i++{
+        str[i] = collection[int(str[i]%byte(linkLength))]
+    }
     return string(str)
 }
