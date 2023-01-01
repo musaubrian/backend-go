@@ -1,2 +1,2 @@
 # backend-go
-> learning how to use Golang in the BAckend
+> learning how to work with Golang in the Backend
