@@ -13,6 +13,7 @@ type TinyUrl struct {
     ID uint64 `json:"id" gorm:"primaryKey"`
     RedirectUrl string `json:"redirectUrl" gorm:"not null"`
     ShortUrl string `json:"url" gorm:"not null"`
+    SuccessfulRedirects uint64 `json:"successfulRedirects"`
 }
 
 func Setup(){

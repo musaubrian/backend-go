@@ -32,16 +32,17 @@ func CreateLink(link TinyUrl) error {
     return tx.Error
 }
 
-func DeleteLink(id uint64) error {
-    tx := db.Unscoped().Delete(&TinyUrl{}, id)
+//func DeleteLink(id uint64) error {
+//    tx := db.Unscoped().Delete(&TinyUrl{}, id)
 
-    return tx.Error
+//    return tx.Error
+//}
 
-}
 
-func FindByUrl(link string)(TinyUrl, error)  {
-    var tinyUrl TinyUrl 
-    tx := db.Where("shortUrl = ?", tinyUrl).First(&link)
+func FindByUrl(url string)(TinyUrl, error)  {
+    var redirectUrl TinyUrl
 
-    return tinyUrl, tx.Error
+    tx := db.Where("short_url = ?", url).First(&redirectUrl)
+
+    return redirectUrl, tx.Error
 }

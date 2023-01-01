@@ -31,6 +31,7 @@ func getLink(c *fiber.Ctx) error  {
     link, err := models.GetLink(id)
     if err != nil {
         log.Fatal("Error getting link from db", err)
+        return err
     }
 
     return c.Status(fiber.StatusOK).JSON(link)
@@ -66,6 +67,7 @@ func redirectToUrl(c *fiber.Ctx) error {
         log.Fatal("Could not find the redirect link in database: ", err)
     }
 
+    link.SuccessfulRedirects += 1
     return c.Redirect(link.RedirectUrl, fiber.StatusTemporaryRedirect)
 }
 
