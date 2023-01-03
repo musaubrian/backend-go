@@ -38,6 +38,11 @@ func CreateLink(link TinyUrl) error {
 //    return tx.Error
 //}
 
+func UpdateClick(link TinyUrl)  error{
+    tx := db.Save(&link)
+
+    return tx.Error
+}
 
 func FindByUrl(url string)(TinyUrl, error)  {
     var redirectUrl TinyUrl

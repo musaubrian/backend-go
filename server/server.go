@@ -68,6 +68,12 @@ func redirectToUrl(c *fiber.Ctx) error {
     }
 
     link.SuccessfulRedirects += 1
+
+    err = models.UpdateClick(link)
+    if err != nil {
+        log.Fatal("Something went horribly wrong", err)
+    }
+
     return c.Redirect(link.RedirectUrl, fiber.StatusTemporaryRedirect)
 }
 
