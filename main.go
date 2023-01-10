@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/musaubrian/backend-go/models"
-    "github.com/musaubrian/backend-go/server"
+	"github.com/musaubrian/backend-go/server"
 )
 
 func main() {
