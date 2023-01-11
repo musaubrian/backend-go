@@ -39,7 +39,7 @@ func getLink(c *fiber.Ctx) error  {
 }
 
 //createLink() returns the generatedUrl and the redirectToUrl
-//   after adding them to the database
+//after adding them to the database
 //adds a new link{redirectToUrl, generatedUrl and counter}
 func createLink(c *fiber.Ctx) error {
     c.Accepts("application/json")
@@ -80,7 +80,7 @@ func redirectToUrl(c *fiber.Ctx) error {
 }
 
 //SetupAndListen() starts the server and listens for requests
-//   on the routes specified
+//on the routes specified
 func SetupAndListen()  {
     router := fiber.New()
 
