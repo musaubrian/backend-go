@@ -58,7 +58,6 @@ func createLink(c *fiber.Ctx) error {
     }
 
     return c.Status(fiber.StatusOK).JSON(link)
-    return c.Status(fiber)
 }
 
 //redirectToUrl redirects to the RedirectUrl that matches the generatedUrl
