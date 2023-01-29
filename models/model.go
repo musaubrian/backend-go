@@ -4,8 +4,12 @@ package models
 
 import (
 	"log"
+	"os"
 
-	"gorm.io/driver/sqlite"
+	// "os"
+
+	"github.com/joho/godotenv"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
@@ -27,7 +31,11 @@ type TinyUrl struct {
 func Setup() {
 
 	var err error
-	db, err = gorm.Open(sqlite.Open(".tinyurl.db"), &gorm.Config{})
+    if err := godotenv.Load(); err != nil {
+        log.Fatal("Could not load .env")
+    }
+    dsn := os.Getenv("DSN") 
+	db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal("Could not open database: ", err)
 		panic(err)
