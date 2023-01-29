@@ -3,56 +3,56 @@ package models
 import "log"
 
 //GetAllLinks() returns all the data stored in the database
-//The returned data contains the url to be redirected to 
+//The returned data contains the url to be redirected to
 //and the generated url
 func GetAllLinks() ([]TinyUrl, error) {
-    var tinyUrls []TinyUrl
+	var tinyUrls []TinyUrl
 
-    tx := db.Find(&tinyUrls)
-    if tx.Error != nil {
-        log.Fatal(tx.Error)
-        return []TinyUrl{}, tx.Error
-    }
+	tx := db.Find(&tinyUrls)
+	if tx.Error != nil {
+		log.Fatal(tx.Error)
+		return []TinyUrl{}, tx.Error
+	}
 
-    return tinyUrls, nil
+	return tinyUrls, nil
 }
 
 //GetLink() returns a single link{the redirectUrl, the generatedurl}
 //from the id
-func GetLink(id uint64) (TinyUrl, error){
-    var singleUrl TinyUrl
+func GetLink(id uint64) (TinyUrl, error) {
+	var singleUrl TinyUrl
 
-    tx := db.Where("id = ?", id).First(&singleUrl)
-    if tx.Error != nil {
-        log.Fatal(tx.Error)
-        return TinyUrl{}, tx.Error
-    }
+	tx := db.Where("id = ?", id).First(&singleUrl)
+	if tx.Error != nil {
+		log.Fatal(tx.Error)
+		return TinyUrl{}, tx.Error
+	}
 
-    return singleUrl, nil
+	return singleUrl, nil
 }
 
 //CreateLink() adds a new generatedUrl to the database
 //returns tx.Error
 func CreateLink(link TinyUrl) error {
-    tx := db.Create(&link)
+	tx := db.Create(&link)
 
-    return tx.Error
+	return tx.Error
 }
 
 //UpdateClick updates counter when a redirectUrl is used
 //returns tx.Error
-func UpdateClick(link TinyUrl)  error{
-    tx := db.Save(&link)
+func UpdateClick(link TinyUrl) error {
+	tx := db.Save(&link)
 
-    return tx.Error
+	return tx.Error
 }
 
 //FindByUrl() returns the redirectUrl and tx.Error
 //searches for the redirectUrl using the generatedurl
-func FindByUrl(url string)(TinyUrl, error)  {
-    var redirectUrl TinyUrl
+func FindByUrl(url string) (TinyUrl, error) {
+	var redirectUrl TinyUrl
 
-    tx := db.Where("short_url = ?", url).First(&redirectUrl)
+	tx := db.Where("short_url = ?", url).First(&redirectUrl)
 
-    return redirectUrl, tx.Error
+	return redirectUrl, tx.Error
 }

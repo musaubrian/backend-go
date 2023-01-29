@@ -4,7 +4,7 @@ package utils
 import "crypto/rand"
 
 var collection = []byte(
-    "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM")
+	"0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM")
 
 // Returns a 4 characters string
 // This will be used to redirect to the actual url
