@@ -1,4 +1,4 @@
-//Package server handles the server setup and routes
+// Package server handles the server setup and routes
 package server
 
 import (
@@ -11,8 +11,8 @@ import (
 	"github.com/musaubrian/backend-go/utils"
 )
 
-//getRedirects() returns the all the data in the database in json
-//using the GetAllLinks function
+// Returns the all the data in the database in json
+// using the GetAllLinks function
 func getRedirects(c *fiber.Ctx) error {
 	links, err := models.GetAllLinks()
 	if err != nil {
@@ -22,7 +22,7 @@ func getRedirects(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(links)
 }
 
-//getLink() returns a single link using the linkID
+// Returns a single link using the linkID
 func getLink(c *fiber.Ctx) error {
 	id, err := strconv.ParseUint(c.Params("id"), 10, 64)
 	if err != nil {
@@ -38,7 +38,7 @@ func getLink(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(link)
 }
 
-//Returns the generatedUrl and the redirectToUrl
+// Returns the generatedUrl and the redirectToUrl
 // after adding them to the database
 // adds a new link{redirectToUrl, generatedUrl and counter}
 func createLink(c *fiber.Ctx) error {
@@ -60,7 +60,7 @@ func createLink(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(link)
 }
 
-//Redirects to the RedirectUrl that matches the generatedUrl
+// Redirects to the RedirectUrl that matches the generatedUrl
 func redirectToUrl(c *fiber.Ctx) error {
 	shortUrl := c.Params("redirect")
 
@@ -79,8 +79,8 @@ func redirectToUrl(c *fiber.Ctx) error {
 	return c.Redirect(link.RedirectUrl, fiber.StatusTemporaryRedirect)
 }
 
-//Starts the server and listens for requests
-//on the routes specified
+// Starts the server and listens for requests
+// on the routes specified
 func SetupAndListen() {
 	router := fiber.New()
 

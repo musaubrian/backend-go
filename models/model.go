@@ -1,5 +1,5 @@
-//package models defines the model structure of how the data
-//will be stored in the database
+// package models defines the model structure of how the data
+// will be stored in the database
 package models
 
 import (
@@ -9,12 +9,12 @@ import (
 	"gorm.io/gorm"
 )
 
-//db is an instance of a gorm DB
-//https://gorm.io/gorm
+// db is an instance of a gorm DB
+// https://gorm.io/gorm
 var db *gorm.DB
 
-//TinyUrl defines the structure of how the data will be stored
-//in the database
+// TinyUrl defines the structure of how the data will be stored
+// in the database
 type TinyUrl struct {
 	ID                  uint64 `json:"id" gorm:"primaryKey"`
 	RedirectUrl         string `json:"redirectUrl" gorm:"not null"`
@@ -22,8 +22,8 @@ type TinyUrl struct {
 	SuccessfulRedirects uint64 `json:"successfulRedirects"`
 }
 
-//Setup() sets up the connection to the database
-//and initializes the structure (table name and columns)
+// Setup() sets up the connection to the database
+// and initializes the structure (table name and columns)
 func Setup() {
 
 	var err error

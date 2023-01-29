@@ -11,11 +11,11 @@ var collection = []byte(
 func GenerateUrl() string {
 
 	linkLength := len(collection)
-	str := make([]byte, 4)
-	rand.Read(str)
+	shortUrl := make([]byte, 4)
+	rand.Read(shortUrl)
 
 	for i := 0; i < 4; i++ {
-		str[i] = collection[int(str[i]%byte(linkLength))]
+		shortUrl[i] = collection[int(shortUrl[i]%byte(linkLength))]
 	}
-	return string(str)
+	return string(shortUrl)
 }
