@@ -31,10 +31,10 @@ type TinyUrl struct {
 func Setup() {
 
 	var err error
-    if err := godotenv.Load(); err != nil {
-        log.Fatal("Could not load .env")
-    }
-    dsn := os.Getenv("DSN") 
+	if err := godotenv.Load(); err != nil {
+		log.Fatal("Could not load .env")
+	}
+	dsn := os.Getenv("DSN")
 	db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal("Could not open database: ", err)
