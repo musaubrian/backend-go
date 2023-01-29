@@ -38,9 +38,9 @@ func getLink(c *fiber.Ctx) error  {
     return c.Status(fiber.StatusOK).JSON(link)
 }
 
-//createLink() returns the generatedUrl and the redirectToUrl
-//after adding them to the database
-//adds a new link{redirectToUrl, generatedUrl and counter}
+//Returns the generatedUrl and the redirectToUrl
+// after adding them to the database
+// adds a new link{redirectToUrl, generatedUrl and counter}
 func createLink(c *fiber.Ctx) error {
     c.Accepts("application/json")
 
@@ -60,7 +60,7 @@ func createLink(c *fiber.Ctx) error {
     return c.Status(fiber.StatusOK).JSON(link)
 }
 
-//redirectToUrl redirects to the RedirectUrl that matches the generatedUrl
+//Redirects to the RedirectUrl that matches the generatedUrl
 func redirectToUrl(c *fiber.Ctx) error {
     shortUrl := c.Params("redirect")
 
@@ -79,7 +79,7 @@ func redirectToUrl(c *fiber.Ctx) error {
     return c.Redirect(link.RedirectUrl, fiber.StatusTemporaryRedirect)
 }
 
-//SetupAndListen() starts the server and listens for requests
+//Starts the server and listens for requests
 //on the routes specified
 func SetupAndListen()  {
     router := fiber.New()

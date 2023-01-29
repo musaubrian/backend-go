@@ -1,12 +1,12 @@
-// Package utils deals with the general functions
+// Package utils holds the GenerateUrl function
 package utils
 
 import "crypto/rand"
 
-// collection creates 'group' of characters and digits
-var collection = []byte("0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM")
+var collection = []byte(
+    "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM")
 
-// GenerateUrl returns a 4 characters string
+// Returns a 4 characters string
 // This will be used to redirect to the actual url
 func GenerateUrl() string {
 
